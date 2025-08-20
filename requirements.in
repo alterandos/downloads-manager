@@ -1,0 +1,5 @@
+watchdog
+python-dateutil
+psutil
+pystray
+Pillow
