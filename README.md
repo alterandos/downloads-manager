@@ -23,7 +23,7 @@ A lightweight Windows utility that auto-organizes new downloads and applies file
 1) Copy `paths.example.py` to `paths.py` and adjust for your machine (kept out of Git).
 2) Create a venv and install deps:
 ```powershell
-cd "C:\Users\anson\Documents\Projects\downloads manager"
+cd "<project_dir>"
 ./scripts/setup_venv.ps1
 ```
 3) Activate (optional for manual runs):
@@ -46,12 +46,13 @@ python main.py
 ## Auto-start on login (Windows)
 - Create a Startup shortcut (Win+R → `shell:startup`) with Target:
 ```
-"C:\Users\anson\Documents\Projects\downloads manager\.venv\Scripts\pythonw.exe" "C:\Users\anson\Documents\Projects\downloads manager\main.py"
+"%PROJECT_DIR%\.venv\Scripts\pythonw.exe" "%PROJECT_DIR%\main.py"
 ```
 - Start in:
 ```
-C:\Users\anson\Documents\Projects\downloads manager
+%PROJECT_DIR%
 ```
+Note: Replace `%PROJECT_DIR%` with your actual project path.
 
 ## Security & privacy
 - `paths.py` is gitignored; commit `paths.example.py` only.
