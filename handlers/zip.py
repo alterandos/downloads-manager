@@ -1,20 +1,15 @@
 from .base import BaseHandler
 from .heroes_map import HeroesMapHandler
 import os
-import zipfile
 from utils.logging_setup import get_logger
+from utils.zip_utils import zip_contains_extension
 
 logger = get_logger(__name__)
 
 class ZIPHandler(BaseHandler):
     def handle(self, event):
         try:
-            has_heroes_map = False
-            # Open and close the zip just to inspect contents
-            with zipfile.ZipFile(event.src_path, 'r') as zip_ref:
-                has_heroes_map = any(name.lower().endswith('.h3m') for name in zip_ref.namelist())
-            # Now the zip is closed; delegate accordingly
-            if has_heroes_map:
+            if zip_contains_extension(event.src_path, {'.h3m'}):
                 logger.info(f'ZIP contains Heroes map: {os.path.basename(event.src_path)}')
                 HeroesMapHandler().handle(event)
             else:
@@ -25,5 +20,6 @@ class ZIPHandler(BaseHandler):
     def handle_error(self, event, error):
         logger.error(f'Error handling ZIP {os.path.basename(event.src_path)}: {error}')
 
-    def call_external(self, event):
-        logger.info(f'Calling external functionality for {os.path.basename(event.src_path)}')
+    def handle_unknown_subtype(self, event, filename):
+        logger.info(f'Unknown ZIP subtype: {filename}')
+        super().handle_unknown_subtype(event, filename)

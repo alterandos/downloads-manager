@@ -3,11 +3,14 @@
 
 from pathlib import Path
 
+USER = 'Tom Johnson'
+
 class DirectoryPaths:
     # Base directories
-    HOME = str(Path.home()).replace('/', '\\') + '\\'
-    DOCUMENTS = f"{HOME}Documents\\"
-    DOWNLOADS = f"{HOME}Downloads\\"
+    USERS = r'C:\\Users\\'
+    ANSON = f'{USERS}{USER}\\'
+    DOCUMENTS = f'{ANSON}Documents\\'
+    DOWNLOADS = f'{ANSON}Downloads\\'
 
     # Admin/Health example
     ADMIN = f"{DOCUMENTS}Admin\\"

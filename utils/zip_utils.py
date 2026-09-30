@@ -15,14 +15,13 @@ def zip_contains_extension(zip_path: str, extensions: Iterable[str]) -> bool:
 
 def extract_and_rename(
     zip_path: str,
-    entries: Iterable[str],
     target_ext: str,
     dest_dir: str,
     rename_fn,
 ) -> Tuple[bool, List[str]]:
     """
     Extract entries with target_ext to dest_dir, applying rename_fn(basename) -> new_name.
-    Returns (extracted_any, unknown_entries)
+    Returns (extracted_any, unknown_entries).
     """
     unknown: List[str] = []
     extracted_any = False
@@ -61,4 +60,4 @@ def finalize_zip(zip_path: str, extracted_any: bool) -> None:
                 os.remove(zip_path)
                 logger.info(f"-- deleted zip (no target extracted): {os.path.basename(zip_path)}")
     except Exception as e:
-        logger.error(f"Error finalizing zip {os.path.basename(zip_path)}: {e}") 
+        logger.error(f"Error finalizing zip {os.path.basename(zip_path)}: {e}")
